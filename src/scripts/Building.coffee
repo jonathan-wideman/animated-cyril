@@ -38,6 +38,8 @@ class exports.Building extends Phaser.Sprite
 
         # set the constructed flag
         @isConstructed = true
+        @game.juice.shake()
+        @game.juice.build()
         return
 
     addNextTurnListener: ()->

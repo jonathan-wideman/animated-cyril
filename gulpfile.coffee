@@ -1,4 +1,5 @@
 gulp = require 'gulp'
+module.exports = gulp
 coffee = require 'gulp-coffee'
 rename = require 'gulp-rename'
 browserify = require 'gulp-browserify'

@@ -16,5 +16,6 @@ class exports.BuildingTest extends Building
     turnEffects: ()->
         # do whatever effects this building has
         # eg. add resources
-        @game.reg.stockpile.earn( @game.reg.stockpile.AER, 1)
-        @game.juice.popText(@x, @y, @game.reg.stockpile.AER + ' +1')
+        amount = 1
+        @game.reg.stockpile.earn( @game.reg.stockpile.AER, amount)
+        @game.juice.popText(@x, @y, @game.reg.stockpile.AER + " +#{amount}")
