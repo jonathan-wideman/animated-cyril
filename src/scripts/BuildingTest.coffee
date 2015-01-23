@@ -59,7 +59,7 @@ class exports.BuildingTest extends Phaser.Sprite
 
         # do whatever effects this building has
         # eg. add resources
-        amount = 7
+        amount = 1
         @game.reg.stockpile.earn( @game.reg.stockpile.AER, amount)
         @game.juice.popText(@x, @y, @game.reg.stockpile.AER + " +#{amount}")
 
