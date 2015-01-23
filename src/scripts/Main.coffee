@@ -2,7 +2,6 @@ Juice = require("./Juice").Juice
 FxFloatingSparkles = require("./FxFloatingSparkles").FxFloatingSparkles
 
 Player = require("./Player").Player
-Building = require("./Building").Building
 
 Enemy = require("./Enemy").Enemy
 

@@ -22,18 +22,20 @@ buildScripts = ()->
         .pipe(rename('Main.js')) # Rename our output stream to be "Main.js"
         .pipe(gulp.dest('build/js')) # Finally set the destination to be the "build/js" folder.
         # this results in "build/js/Main.js"
+    gulp.src(["src/index.html", "assets/**"], {"base": "."})
+        .pipe(gulp.dest('build'))
 
 
 # Gulp Tasks are what you can call from the CLI. So, this
-# definition exposes "gulp scripts"
-gulp.task 'scripts', buildScripts
+# definition exposes "gulp build"
+gulp.task 'build', buildScripts
 
 gulp.task 'watch', ()->
     # The Watch method watches for changes in the array of src files, and calls the following array of tasks anytime
     # the files are changed
     gulp.watch ['src/scripts/**/*.coffee'], ['scripts']
 
-gulp.task 'build', ()->
+gulp.task 'dist', ()->
     gulp.src('build/**/*')
         .pipe(zip(package_data.name+"-"+package_data.version+'.zip'))
         .pipe(gulp.dest('dist'))
