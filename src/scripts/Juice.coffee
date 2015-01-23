@@ -14,6 +14,8 @@ class exports.Juice
         @sndTeleport = game.add.sound('sndTeleport', @defaultSoundVolume)
         @sndTeleport.allowMultiple = true
 
+        @sndPlace = @game.add.sound('sndPlace')
+        @sndPlace.allowMultiple = true
 
         # particles
         @emitter = game.add.emitter(0, 0, 1000)
@@ -49,6 +51,9 @@ class exports.Juice
         @sndTeleport.play()
         @splode x1, y1
         @splode x2, y2
+
+    build: () ->
+        @sndPlace.play()
 
     plop: (x, y)->
         # play a new plop sound
