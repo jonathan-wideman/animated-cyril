@@ -1,9 +1,9 @@
-PlayerController = require("./PlayerController").PlayerController
+PlayerController = require("../controllers/PlayerController").PlayerController
 
-ToolMissile = require("./ToolMissile").ToolMissile
-ToolTerrain = require("./ToolTerrain").ToolTerrain
-ToolTeleport = require("./ToolTeleport").ToolTeleport
-ToolBuild = require("./ToolBuild").ToolBuild
+ToolMissile = require("../tools/ToolMissile").ToolMissile
+ToolTerrain = require("../tools/ToolTerrain").ToolTerrain
+ToolTeleport = require("../tools/ToolTeleport").ToolTeleport
+ToolBuild = require("../tools/ToolBuild").ToolBuild
 
 
 class exports.Player extends Phaser.Sprite

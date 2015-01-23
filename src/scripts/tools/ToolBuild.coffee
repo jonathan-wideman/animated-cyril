@@ -1,4 +1,4 @@
-BuildingTest = require("./BuildingTest").BuildingTest
+BuildingTest = require("../entities/BuildingTest").BuildingTest
 
 # The build tool allows the player to create buildings
 class exports.ToolBuild

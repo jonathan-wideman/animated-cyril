@@ -5,6 +5,7 @@ rename = require 'gulp-rename'
 browserify = require 'gulp-browserify'
 serve = require 'gulp-serve'
 zip = require 'gulp-zip'
+del = require 'del'
 
 package_data = require('./package.json')
 
@@ -22,8 +23,12 @@ buildScripts = ()->
         .pipe(rename('Main.js')) # Rename our output stream to be "Main.js"
         .pipe(gulp.dest('build/js')) # Finally set the destination to be the "build/js" folder.
         # this results in "build/js/Main.js"
-    gulp.src(["src/index.html", "assets/**"], {"base": "."})
+    gulp.src("src/index.html")
         .pipe(gulp.dest('build'))
+    gulp.src("assets/**", {"base": "."})
+        .pipe(gulp.dest('build'))
+    gulp.src("src/vendor/**", {"base": "src"})
+        .pipe(gulp.dest('build/js'))
 
 
 # Gulp Tasks are what you can call from the CLI. So, this
@@ -33,7 +38,7 @@ gulp.task 'build', buildScripts
 gulp.task 'watch', ()->
     # The Watch method watches for changes in the array of src files, and calls the following array of tasks anytime
     # the files are changed
-    gulp.watch ['src/scripts/**/*.coffee'], ['scripts']
+    gulp.watch ['src/scripts/**/*.coffee', 'src/**/*.html'], ['build']
 
 gulp.task 'dist', ()->
     gulp.src('build/**/*')
@@ -46,3 +51,8 @@ gulp.task 'serve', serve(
     root: ['build']
     port: 8000
 )
+
+gulp.task 'clean', ()->
+    del [
+        'build/'
+    ]
