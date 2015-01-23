@@ -1,4 +1,4 @@
-class exports.BuildingTest extends Phaser.Sprite
+class exports.Building extends Phaser.Sprite
 
     name: ''
 
@@ -8,8 +8,14 @@ class exports.BuildingTest extends Phaser.Sprite
 
     constructor: (@game, x = 0, y = 0)->
 
+        # remember our name because Sprite constructor is dumb
+        name = @name
+
         # Call the sprite constructor
         super @game, x, y, @graphicName
+
+        # reset our name because Sprite constructor is dumb
+        @name = name
 
         # Set the anchor to the center of the sprite
         @anchor.setTo 0.5, 0.5
@@ -21,7 +27,7 @@ class exports.BuildingTest extends Phaser.Sprite
         @events.onInputOut.add(@unhover, @)
 
         # add ourselves to the game state
-        game.add.existing this
+        @game.add.existing this
 
         @addNextTurnListener()
 
