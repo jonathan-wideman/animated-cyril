@@ -45,6 +45,11 @@ gamestate =
         # game.load.audio('sndTile', 'assets/snd/rollover5.wav')
         game.load.audio('sndTile', 'assets/snd/rollover6.wav')
 
+        game.plugins.screenShake = game.plugins.add(Phaser.Plugin.ScreenShake)
+        game.plugins.screenShake.setup
+            shakeX: false
+            shakeY: true
+            sensCoef: .5
 
     create: ()->
         # # Add a Hello World message

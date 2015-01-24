@@ -28,9 +28,9 @@ class exports.Juice
 
 
     shake: ()->
-        @game.add.tween(@game.camera)
-            .from({ y: @game.camera.y - 5 }, 50, Phaser.Easing.Sinusoidal.InOut, false, 0, 4, true)
-            .start()
+        @game.plugins.screenShake.shake 15
+        # @game.add.tween(@game.camera)
+           # .from({ y: @game.camera.y - 5 }, 50, Phaser.Easing.Sinusoidal.InOut, true, 0, 4, true)
         # console.log 'shake shake!'
 
     splode: (x, y)->
