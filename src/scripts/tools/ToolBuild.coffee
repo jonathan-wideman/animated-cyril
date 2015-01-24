@@ -1,4 +1,7 @@
 BuildingTest = require("../entities/BuildingTest").BuildingTest
+BuildingDecanter = require("../entities/BuildingDecanter").BuildingDecanter
+BuildingSump = require("../entities/BuildingSump").BuildingSump
+BuildingWall = require("../entities/BuildingWall").BuildingWall
 
 # The build tool allows the player to create buildings
 class exports.ToolBuild
@@ -25,7 +28,7 @@ class exports.ToolBuild
         @gun.visible = false
 
         # create a ghost cursor
-        @newGhost(BuildingTest)
+        @newGhost(BuildingDecanter)
 
         @unselect()
 
@@ -53,6 +56,14 @@ class exports.ToolBuild
                 @player.animations.play('idle')
                 @constructing = false
 
+        # switch buildings
+        if @game.input.keyboard.downDuration(Phaser.Keyboard.Q, 10)
+            @currentTile = Phaser.Math.clamp @currentTile - 1, 0, 7
+            # console.log 'currentTile -- to ' + @currentTile
+        if @game.input.keyboard.downDuration(Phaser.Keyboard.E, 10)
+            @currentTile = Phaser.Math.clamp @currentTile + 1, 0, 7
+            # console.log 'currentTile ++ to ' + @currentTile
+
     getStatusText: ()->
         status = ''
         status += 'building: ' + if @ghost then @ghost.name else 'none' + '\n'
@@ -79,6 +90,6 @@ class exports.ToolBuild
         if @ghost
             @ghost.build()
             # @ghost = null
-            @newGhost(BuildingTest)
+            @newGhost(BuildingDecanter)
 
 
