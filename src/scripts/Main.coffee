@@ -1,12 +1,11 @@
-Juice = require("./Juice").Juice
-FxFloatingSparkles = require("./FxFloatingSparkles").FxFloatingSparkles
+Juice = require("./utils/Juice").Juice
+FxFloatingSparkles = require("./utils/FxFloatingSparkles").FxFloatingSparkles
 
-Player = require("./Player").Player
-Building = require("./Building").Building
+Player = require("./entities/Player").Player
 
-Enemy = require("./Enemy").Enemy
+Enemy = require("./entities/Enemy").Enemy
 
-Stockpile = require('./Stockpile').Stockpile
+Stockpile = require('./logic/Stockpile').Stockpile
 
 window.onload = ()->
 
@@ -46,6 +45,11 @@ gamestate =
         # game.load.audio('sndTile', 'assets/snd/rollover5.wav')
         game.load.audio('sndTile', 'assets/snd/rollover6.wav')
 
+        game.plugins.screenShake = game.plugins.add(Phaser.Plugin.ScreenShake)
+        game.plugins.screenShake.setup
+            shakeX: false
+            shakeY: true
+            sensCoef: .5
 
     create: ()->
         # # Add a Hello World message
