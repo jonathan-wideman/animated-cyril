@@ -71,8 +71,8 @@ class exports.ToolTerrain
         @gun.y = @player.y
 
         # Move the selection to the cursor
-        @selection.x = Math.floor(@game.input.activePointer.worldX / 32) * 32 + 16
-        @selection.y = Math.floor(@game.input.activePointer.worldY / 32) * 32 + 16
+        @selection.x = (@game.input.activePointer.worldX // 32) * 32 + 16
+        @selection.y = (@game.input.activePointer.worldY // 32) * 32 + 16
 
         # l-click to paint tiles
 

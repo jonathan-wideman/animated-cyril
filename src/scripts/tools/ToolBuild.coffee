@@ -1,4 +1,5 @@
-BuildingTest = require("../entities/BuildingTest").BuildingTest
+BuildingTest = require('../entities/BuildingTest').BuildingTest
+BuildingController = require '../controllers/BuildingController'
 
 # The build tool allows the player to create buildings
 class exports.ToolBuild
@@ -15,6 +16,9 @@ class exports.ToolBuild
     constructor: (@game, @player)->
 
         @constructing = false
+
+        console.log BuildingController
+        @controller = new BuildingController(@game)
 
         # Create an object representing our gun
         @gun = @game.add.sprite 50, @game.height/2, 'star2'
@@ -38,20 +42,27 @@ class exports.ToolBuild
         @gun.y = @player.y
 
         # Move the ghost image to the cursor
-        @ghost.x = @game.input.activePointer.worldX
-        @ghost.y = @game.input.activePointer.worldY
-
+        x = @game.input.activePointer.worldX // 32
+        y = @game.input.activePointer.worldY // 32
+        @ghost.x = x * 32 + 16
+        @ghost.y = y * 32 + 16
+        @ghost.tilex = x
+        @ghost.tiley = y
 
         if not @constructing
             if @game.input.mousePointer.justReleased(@cooldown)
-                @player.animations.play('cast')
-                @game.juice.plop(@ghost.x, @ghost.y)
-                @buildGhost()
-                @constructing = true
+                if @controller.build(@ghost)
+                    @player.animations.play('cast')
+                    @game.juice.plop(@ghost.x, @ghost.y)
+                    @newGhost(BuildingTest)
+                    setTimeout =>
+                        console.log "dfsfsdafF!!!"
+                        @constructing = true
+                    , 500
         else
-            if not @game.input.mousePointer.justReleased(@cooldown)
-                @player.animations.play('idle')
-                @constructing = false
+            #if not @game.input.mousePointer.justReleased(@cooldown)
+            @player.animations.play('idle')
+            @constructing = false
 
     getStatusText: ()->
         status = ''
@@ -64,8 +75,6 @@ class exports.ToolBuild
     unselect: ()->
         @ghost.kill()
 
-
-
     newGhost: (buildingType)=>
         # if we've not constructed the ghost building,
         # we're switching cursors, so destory the old one
@@ -74,11 +83,3 @@ class exports.ToolBuild
         @ghost = new buildingType(@game)
         # console.log @ghost
         return @ghost
-
-    buildGhost: ()->
-        if @ghost
-            @ghost.build()
-            # @ghost = null
-            @newGhost(BuildingTest)
-
-

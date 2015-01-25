@@ -79,6 +79,7 @@ gamestate =
 
         MAP_WIDTH = 40
         MAP_HEIGHT = 30
+        @game.reg.map = (null for [0...MAP_HEIGHT] for [0...MAP_WIDTH])
 
         #  Creates a new blank layer and sets the map dimensions.
         #  In this case the map is 40x30 tiles in size and the tiles are 32x32 pixels in size.
