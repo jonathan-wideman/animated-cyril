@@ -1,7 +1,7 @@
-BuildingTest = require("../entities/BuildingTest").BuildingTest
-BuildingDecanter = require("../entities/BuildingDecanter").BuildingDecanter
-BuildingSump = require("../entities/BuildingSump").BuildingSump
-BuildingWall = require("../entities/BuildingWall").BuildingWall
+BuildingTest = require("../entities/buildings/BuildingTest").BuildingTest
+BuildingDecanter = require("../entities/buildings/BuildingDecanter").BuildingDecanter
+BuildingSump = require("../entities/buildings/BuildingSump").BuildingSump
+BuildingWall = require("../entities/buildings/BuildingWall").BuildingWall
 
 # The build tool allows the player to create buildings
 class exports.ToolBuild
