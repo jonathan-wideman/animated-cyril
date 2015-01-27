@@ -1,4 +1,4 @@
-build/
-dist/
-node_modules/
+node_modules/*
+build/js/*
+dist/*
 .sublime-gulp.cache
