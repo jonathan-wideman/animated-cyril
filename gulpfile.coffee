@@ -35,6 +35,9 @@ buildScripts = ()->
 # definition exposes "gulp build"
 gulp.task 'build', buildScripts
 
+# Allow scripts to be built with 'scripts' command
+gulp.task 'scripts', buildScripts
+
 gulp.task 'watch', ()->
     # The Watch method watches for changes in the array of src files, and calls the following array of tasks anytime
     # the files are changed
