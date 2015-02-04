@@ -30,6 +30,14 @@ class exports.ToolBuild
         # create a ghost cursor
         @newGhost(BuildingDecanter)
 
+        @buildings = [
+            # BuildingTest,
+            BuildingDecanter,
+            BuildingSump,
+            BuildingWall,
+        ]
+        @nextBuilding()
+
         @unselect()
 
         return this
@@ -58,11 +66,11 @@ class exports.ToolBuild
 
         # switch buildings
         if @game.input.keyboard.downDuration(Phaser.Keyboard.Q, 10)
-            @currentTile = Phaser.Math.clamp @currentTile - 1, 0, 7
-            # console.log 'currentTile -- to ' + @currentTile
+            # change the cursor to the prev building in the list
+            @prevBuilding()
         if @game.input.keyboard.downDuration(Phaser.Keyboard.E, 10)
-            @currentTile = Phaser.Math.clamp @currentTile + 1, 0, 7
-            # console.log 'currentTile ++ to ' + @currentTile
+            # change the cursor to the next building in the list
+            @nextBuilding()
 
     getStatusText: ()->
         status = ''
@@ -76,10 +84,9 @@ class exports.ToolBuild
         @ghost.kill()
 
 
-
     newGhost: (buildingType)=>
         # if we've not constructed the ghost building,
-        # we're switching cursors, so destory the old one
+        # we're switching cursors, so destroy the old one
         if @ghost and not @ghost.isConstructed
             @ghost.destroy()
         @ghost = new buildingType(@game)
@@ -90,6 +97,34 @@ class exports.ToolBuild
         if @ghost
             @ghost.build()
             # @ghost = null
-            @newGhost(BuildingDecanter)
+            @newGhost(@currentBuilding)
 
+    nextBuilding: ()->
+        # console.log 'switching from ' + if @currentBuilding then @currentBuilding.name else 'nothing'
 
+        # get the next building and remove it from the list
+        @currentBuilding = @buildings.pop()
+
+        # show the new building
+        if @currentBuilding
+            # readd the building to the front of the list
+            @buildings.unshift(@currentBuilding)
+            # create a new build ghost (will also destroy old one)
+            @newGhost(@currentBuilding)
+
+        # console.log 'to ' + @currentBuilding.name
+
+    prevBuilding: ()->
+        # console.log 'switching from ' + if @currentBuilding then @currentBuilding.name else 'nothing'
+
+        # get the prev building and remove it from the list
+        @currentBuilding = @buildings.shift()
+
+        # show the new building
+        if @currentBuilding
+            # readd the building to the end of the list
+            @buildings.push(@currentBuilding)
+            # create a new build ghost (will also destroy old one)
+            @newGhost(@currentBuilding)
+
+        # console.log 'to ' + @currentBuilding.name

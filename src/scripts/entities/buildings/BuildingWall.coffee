@@ -13,5 +13,5 @@ class exports.BuildingWall extends Building
 
         return this
 
-    turnEffects: ()->
-        # do whatever effects this building has
+    onTurn: ()->
+        # The wall doesn't do anything. It's a wall.

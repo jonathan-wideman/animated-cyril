@@ -35,11 +35,11 @@ class exports.Building extends Phaser.Sprite
 
     build: ()->
         @unghost()
-
         # set the constructed flag
         @isConstructed = true
         @game.juice.shake()
         @game.juice.build()
+        @onBuild()
         return
 
     addNextTurnListener: ()->
@@ -51,9 +51,18 @@ class exports.Building extends Phaser.Sprite
             return
 
         # do whatever effects this building has
-        @turnEffects()
+        @onTurn()
 
-    turnEffects: ()->
+    # should be called every turn if this building is constructed
+    onTurn: ()->
+        # default buildings do nothing
+
+    # should be called when this building is constructed
+    onBuild: ()->
+        # default buildings do nothing
+
+    # should be called when this building is demolished by damage or deconstruction
+    onDemolish: ()->
         # default buildings do nothing
 
     ghost: ()->
