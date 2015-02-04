@@ -23,12 +23,12 @@ buildScripts = ()->
         .pipe(rename('Main.js')) # Rename our output stream to be "Main.js"
         .pipe(gulp.dest('build/js')) # Finally set the destination to be the "build/js" folder.
         # this results in "build/js/Main.js"
-    gulp.src("src/index.html")
-        .pipe(gulp.dest('build'))
-    gulp.src("assets/**", {"base": "."})
-        .pipe(gulp.dest('build'))
-    gulp.src("src/vendor/**", {"base": "src"})
-        .pipe(gulp.dest('build/js'))
+    # gulp.src("src/index.html")
+    #     .pipe(gulp.dest('build'))
+    # gulp.src("assets/**", {"base": "."})
+    #     .pipe(gulp.dest('build'))
+    # gulp.src("src/vendor/**", {"base": "src"})
+    #     .pipe(gulp.dest('build/js'))
 
 
 # Gulp Tasks are what you can call from the CLI. So, this

@@ -24,6 +24,9 @@ gamestate =
 
         # load some building sprites
         game.load.image 'buildingTest', 'assets/img/buildingTest.png'
+        game.load.image 'buildingDecanter', 'assets/img/buildingDecanter.png'
+        game.load.image 'buildingSump', 'assets/img/buildingSump.png'
+        game.load.image 'buildingWall', 'assets/img/buildingWall.png'
 
         # load the player spritesheet
         game.load.spritesheet 'player', 'assets/img/player.png', 32, 32

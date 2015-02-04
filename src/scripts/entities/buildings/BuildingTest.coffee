@@ -13,7 +13,7 @@ class exports.BuildingTest extends Building
 
         return this
 
-    turnEffects: ()->
+    onTurn: ()->
         # do whatever effects this building has
         # eg. add resources
         amount = 1

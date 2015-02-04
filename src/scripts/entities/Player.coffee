@@ -74,8 +74,9 @@ class exports.Player extends Phaser.Sprite
 
         # show the new tool
         if @tool
+            # readd the tool to the front of the list
             @tools.unshift(@tool)
-            # readd the tool to thefront of the list
+            # tell the new tool its selected
             @tool.select()
 
         # console.log 'to ' + @tool.name

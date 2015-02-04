@@ -1,4 +1,7 @@
-BuildingTest = require("../entities/BuildingTest").BuildingTest
+BuildingTest = require("../entities/buildings/BuildingTest").BuildingTest
+BuildingDecanter = require("../entities/buildings/BuildingDecanter").BuildingDecanter
+BuildingSump = require("../entities/buildings/BuildingSump").BuildingSump
+BuildingWall = require("../entities/buildings/BuildingWall").BuildingWall
 
 # The build tool allows the player to create buildings
 class exports.ToolBuild
@@ -25,7 +28,15 @@ class exports.ToolBuild
         @gun.visible = false
 
         # create a ghost cursor
-        @newGhost(BuildingTest)
+        @newGhost(BuildingDecanter)
+
+        @buildings = [
+            # BuildingTest,
+            BuildingDecanter,
+            BuildingSump,
+            BuildingWall,
+        ]
+        @nextBuilding()
 
         @unselect()
 
@@ -53,6 +64,14 @@ class exports.ToolBuild
                 @player.animations.play('idle')
                 @constructing = false
 
+        # switch buildings
+        if @game.input.keyboard.downDuration(Phaser.Keyboard.Q, 10)
+            # change the cursor to the prev building in the list
+            @prevBuilding()
+        if @game.input.keyboard.downDuration(Phaser.Keyboard.E, 10)
+            # change the cursor to the next building in the list
+            @nextBuilding()
+
     getStatusText: ()->
         status = ''
         status += 'building: ' + if @ghost then @ghost.name else 'none' + '\n'
@@ -65,10 +84,9 @@ class exports.ToolBuild
         @ghost.kill()
 
 
-
     newGhost: (buildingType)=>
         # if we've not constructed the ghost building,
-        # we're switching cursors, so destory the old one
+        # we're switching cursors, so destroy the old one
         if @ghost and not @ghost.isConstructed
             @ghost.destroy()
         @ghost = new buildingType(@game)
@@ -79,6 +97,34 @@ class exports.ToolBuild
         if @ghost
             @ghost.build()
             # @ghost = null
-            @newGhost(BuildingTest)
+            @newGhost(@currentBuilding)
 
+    nextBuilding: ()->
+        # console.log 'switching from ' + if @currentBuilding then @currentBuilding.name else 'nothing'
 
+        # get the next building and remove it from the list
+        @currentBuilding = @buildings.pop()
+
+        # show the new building
+        if @currentBuilding
+            # readd the building to the front of the list
+            @buildings.unshift(@currentBuilding)
+            # create a new build ghost (will also destroy old one)
+            @newGhost(@currentBuilding)
+
+        # console.log 'to ' + @currentBuilding.name
+
+    prevBuilding: ()->
+        # console.log 'switching from ' + if @currentBuilding then @currentBuilding.name else 'nothing'
+
+        # get the prev building and remove it from the list
+        @currentBuilding = @buildings.shift()
+
+        # show the new building
+        if @currentBuilding
+            # readd the building to the end of the list
+            @buildings.push(@currentBuilding)
+            # create a new build ghost (will also destroy old one)
+            @newGhost(@currentBuilding)
+
+        # console.log 'to ' + @currentBuilding.name

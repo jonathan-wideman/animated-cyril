@@ -5,13 +5,13 @@ class exports.Stockpile
         @DYN = 'Dynamis'
 
         @resources = [
-            { name: 'Aeregium', amount: 0 }
-            { name: 'Dynamis', amount: 0 }
+            { name: 'Aeregium', amount: 0, maximum: 0 }
+            { name: 'Dynamis', amount: 0, maximum: 0 }
         ]
 
     getStatusText: ()->
         status = ''
-        status += resource.name + ': ' + resource.amount + '\n' for resource in @resources
+        status += resource.name + ': ' + resource.amount + '/' + resource.maximum + '\n' for resource in @resources
         return status
 
     find: (resource)->
@@ -25,6 +25,8 @@ class exports.Stockpile
             @resources.push(stock)
         # add some of this resource to our stocks
         stock.amount += amount
+        # if the stock exceeds the maximum, reduce it
+        stock.amount = Phaser.Math.clamp(stock.amount, 0, stock.maximum)
 
     canAfford: (resource, amount)->
         stock = @find(resource)
@@ -43,3 +45,24 @@ class exports.Stockpile
         stock.amount -= amount
         # we spent the resource - return true
         return true
+
+    increaseMax: (resource, amount)->
+        stock = @find(resource)
+        if not stock
+            # we don't have this resource at all
+            stock = { name: resource, amount: 0, maximum: 0 }
+            @resources.push(stock)
+        # increase the maximum for this resource
+        stock.maximum += amount
+
+    decreaseMax: (resource, amount)->
+        stock = @find(resource)
+        if not stock
+            # we don't have this resource at all
+            return
+        # decrease the maximum for this resource
+        stock.maximum -= amount
+        # ensure we don't go below zero
+        stock.maximum = Phaser.Math.clampBottom(stock.maximum, 0)
+        # if the stock exceeds the new maximum, reduce it
+        stock.amount = Phaser.Math.clamp(stock.amount, 0, stock.maximum)
