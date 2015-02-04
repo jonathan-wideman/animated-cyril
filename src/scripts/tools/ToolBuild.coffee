@@ -16,30 +16,29 @@ class exports.ToolBuild
     constructor: (@game, @player)->
 
         @constructing = false
+        @casting = false
 
         console.log BuildingController
         @controller = new BuildingController(@game)
 
         # Create an object representing our gun
-        @gun = @game.add.sprite 50, @game.height/2, 'star2'
+        # @gun = @game.add.sprite 50, @game.height/2, 'star2'
 
         # Set the pivot point to the center of the gun
-        @gun.anchor.setTo 0.5, 0.5
+        # @gun.anchor.setTo 0.5, 0.5
 
-        @gun.visible = false
+        # @gun.visible = false
 
         # create a ghost cursor
         @newGhost(BuildingTest)
 
         @unselect()
 
-        return this
-
     update: ()=>
 
         # Move the gun to the player
-        @gun.x = @player.x
-        @gun.y = @player.y
+        # @gun.x = @player.x
+        # @gun.y = @player.y
 
         # Move the ghost image to the cursor
         x = @game.input.activePointer.worldX // 32
@@ -48,21 +47,23 @@ class exports.ToolBuild
         @ghost.y = y * 32 + 16
         @ghost.tilex = x
         @ghost.tiley = y
-
         if not @constructing
             if @game.input.mousePointer.justReleased(@cooldown)
                 if @controller.build(@ghost)
+                    @constructing = true
                     @player.animations.play('cast')
                     @game.juice.plop(@ghost.x, @ghost.y)
                     @newGhost(BuildingTest)
+                    @casting = true
                     setTimeout =>
-                        console.log "dfsfsdafF!!!"
-                        @constructing = true
+                        @casting = false
+                        @constructing = false
                     , 500
-        else
+        if @player.animations.name isnt 'idle' and not @casting
+            console.log "constructing=true"
             #if not @game.input.mousePointer.justReleased(@cooldown)
             @player.animations.play('idle')
-            @constructing = false
+            @casting = false
 
     getStatusText: ()->
         status = ''

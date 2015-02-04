@@ -1,10 +1,5 @@
 PlayerController = require("../controllers/PlayerController").PlayerController
 
-ToolMissile = require("../tools/ToolMissile").ToolMissile
-ToolTerrain = require("../tools/ToolTerrain").ToolTerrain
-ToolTeleport = require("../tools/ToolTeleport").ToolTeleport
-ToolBuild = require("../tools/ToolBuild").ToolBuild
-
 
 class exports.Player extends Phaser.Sprite
     # how fast can we move
@@ -33,49 +28,15 @@ class exports.Player extends Phaser.Sprite
         @controller = new PlayerController @game, @
 
         # add ourselves to the game state
-        game.add.existing this
+        @game.add.existing @
 
-        # # create the Magic Missile Tool
-        # @tool = new ToolMissile @game, this
-
-        # create the Terrain Tool
-        # @tool = new ToolTerrain @game, this
-
-        @tools = [
-            new ToolMissile @game, this
-            new ToolTeleport @game, this
-            new ToolTerrain @game, this
-            new ToolBuild @game, this
-        ]
-        @nextTool()
-
-        return this
-
-
-    update: ()=>
+    update: ->
 
         # Update the player controller
         @controller.update()
 
-        # Update our Tool
-        if @tool?
-            @tool.update()
+    getTool: ->
+        @controller.tool
 
-
-    nextTool: ()->
-        # console.log 'switching from ' + if @tool then @tool.name else 'nothing'
-
-        # hide the old tool
-        if @tool
-            @tool.unselect()
-
-        # get the next tool and remove it from the list
-        @tool = @tools.pop()
-
-        # show the new tool
-        if @tool
-            @tools.unshift(@tool)
-            # readd the tool to thefront of the list
-            @tool.select()
-
-        # console.log 'to ' + @tool.name
+    handleClick: (tile) ->
+        @controller.handleClick tile

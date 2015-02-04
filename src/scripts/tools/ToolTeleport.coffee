@@ -28,9 +28,9 @@ class exports.ToolTeleport
         if not @teleporting
             if @game.input.mousePointer.justReleased(@cooldown)
                 @player.animations.play('cast')
-                @game.juice.foosh(@player.x, @player.y, game.input.activePointer.worldX, game.input.activePointer.worldY)
-                @player.x = game.input.activePointer.worldX
-                @player.y = game.input.activePointer.worldY
+                @game.juice.foosh(@player.x, @player.y, @game.input.activePointer.worldX, @game.input.activePointer.worldY)
+                @player.x = @game.input.activePointer.worldX
+                @player.y = @game.input.activePointer.worldY
                 @teleporting = true
         else
             if not @game.input.mousePointer.justReleased(@cooldown)

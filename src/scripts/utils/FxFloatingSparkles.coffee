@@ -17,8 +17,8 @@ class exports.FxFloatingSparkles extends Phaser.Group
         # Create a timer for spawning a new particle
         @spawnTimer = 0
 
-        # add ourselves to the game state
-        # game.add.existing this
+        # add ourselves to the @game state
+        # @game.add.existing this
 
         return this
 

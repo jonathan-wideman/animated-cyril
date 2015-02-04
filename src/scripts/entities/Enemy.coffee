@@ -25,7 +25,7 @@ class exports.Enemy extends Phaser.Sprite
         @game.physics.enable @, Phaser.Physics.ARCADE
 
         # add ourselves to the game state
-        game.add.existing this
+        @game.add.existing this
 
         @animations.play('down')
 

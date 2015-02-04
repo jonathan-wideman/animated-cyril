@@ -82,18 +82,18 @@ class exports.ToolTerrain
 
         # click the tile palette to pick a tile
 
-        markerX = @currentLayer.getTileX(game.input.activePointer.worldX) * 32
-        markerY = @currentLayer.getTileY(game.input.activePointer.worldY) * 32
+        markerX = @currentLayer.getTileX(@game.input.activePointer.worldX) * 32
+        markerY = @currentLayer.getTileY(@game.input.activePointer.worldY) * 32
 
         if (@game.input.mousePointer.isDown)
             @player.animations.play('cast')
             # @map.putTile(@currentTile, @currentLayer.getTileX(markerX), @currentLayer.getTileY(markerY), @currentLayer)
-            if (game.input.keyboard.isDown(Phaser.Keyboard.SHIFT))
+            if (@game.input.keyboard.isDown(Phaser.Keyboard.SHIFT))
                 @currentTile = @map.getTile(@currentLayer.getTileX(markerX), @currentLayer.getTileY(markerY)).index
             else
                 if (@map.getTile(@currentLayer.getTileX(markerX), @currentLayer.getTileY(markerY)).index != @currentTile)
                     @map.putTile(@currentTile, @currentLayer.getTileX(markerX), @currentLayer.getTileY(markerY))
-                    @game.juice.plop(game.input.activePointer.worldX, game.input.activePointer.worldY)
+                    @game.juice.plop(@game.input.activePointer.worldX, @game.input.activePointer.worldY)
         else
             @player.animations.play('idle')
 

@@ -5,20 +5,20 @@ class exports.Juice
         @defaultSoundVolume = 1
 
         # Add sounds
-        @sndTile = game.add.sound('sndTile', @defaultSoundVolume)
+        @sndTile = @game.add.sound('sndTile', @defaultSoundVolume)
         @sndTile.allowMultiple = true
 
-        @sndMissile = game.add.sound('sndMissile', @defaultSoundVolume)
+        @sndMissile = @game.add.sound('sndMissile', @defaultSoundVolume)
         @sndMissile.allowMultiple = true
 
-        @sndTeleport = game.add.sound('sndTeleport', @defaultSoundVolume)
+        @sndTeleport = @game.add.sound('sndTeleport', @defaultSoundVolume)
         @sndTeleport.allowMultiple = true
 
         @sndPlace = @game.add.sound('sndPlace')
         @sndPlace.allowMultiple = true
 
         # particles
-        @emitter = game.add.emitter(0, 0, 1000)
+        @emitter = @game.add.emitter(0, 0, 1000)
 
         @emitter.makeParticles('particle')
         @emitter.gravity = 300
@@ -57,7 +57,7 @@ class exports.Juice
 
     plop: (x, y)->
         # play a new plop sound
-        # sndTile = game.add.sound('sndTile', @defaultSoundVolume)
+        # sndTile = @game.add.sound('sndTile', @defaultSoundVolume)
         @sndTile.play()
 
         @splode x, y

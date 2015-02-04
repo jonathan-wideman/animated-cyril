@@ -1,3 +1,8 @@
+ToolMissile = require("../tools/ToolMissile").ToolMissile
+ToolTerrain = require("../tools/ToolTerrain").ToolTerrain
+ToolTeleport = require("../tools/ToolTeleport").ToolTeleport
+ToolBuild = require("../tools/ToolBuild").ToolBuild
+
 class exports.PlayerController
 
     keyboard_modes: {
@@ -17,7 +22,7 @@ class exports.PlayerController
     }
 
     constructor: (@game, @player)->
-        @cursors = game.input.keyboard.createCursorKeys()
+        @cursors = @game.input.keyboard.createCursorKeys()
         @setKeymap("QWERTY")
 
         @game.input.keyboard.addKeyCapture([
@@ -34,6 +39,14 @@ class exports.PlayerController
             Phaser.Keyboard.SPACEBAR,
             Phaser.Keyboard.ENTER,
         ]);
+
+        @tools = [
+            new ToolMissile @game, @player
+            new ToolTeleport @game, @player
+            new ToolTerrain @game, @player
+            new ToolBuild @game, @player
+        ]
+        @nextTool()
 
     setKeymap: (mode)=>
         if @keyboard_modes[mode]?
@@ -60,7 +73,31 @@ class exports.PlayerController
         if @game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 10)
             @player.nextTool()
 
+        @tool.update()
+
         # # TODO: we'll want to switch this so we've got our check-ammo
         # # screen, rather than explicitly pressing the R key to reload
         # if @game.input.keyboard.justPressed(Phaser.Keyboard.R)
         #     @player.reloadGun()
+
+    nextTool: ()->
+        # console.log 'switching from ' + if @tool then @tool.name else 'nothing'
+
+        # hide the old tool
+        if @tool
+            @tool.unselect()
+
+        # get the next tool and remove it from the list
+        @tool = @tools.pop()
+
+        # show the new tool
+        if @tool
+            @tools.unshift(@tool)
+            # readd the tool to thefront of the list
+            @tool.select()
+
+        # console.log 'to ' + @tool.name
+
+    handleClick: (tile) ->
+        # console.log tile
+
