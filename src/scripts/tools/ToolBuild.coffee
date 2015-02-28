@@ -18,7 +18,6 @@ class exports.ToolBuild
         @constructing = false
         @casting = false
 
-        console.log BuildingController
         @controller = new BuildingController(@game)
 
         # Create an object representing our gun
@@ -60,7 +59,7 @@ class exports.ToolBuild
                         @constructing = false
                     , 500
         if @player.animations.name isnt 'idle' and not @casting
-            console.log "constructing=true"
+            # console.log "constructing=true"
             #if not @game.input.mousePointer.justReleased(@cooldown)
             @player.animations.play('idle')
             @casting = false

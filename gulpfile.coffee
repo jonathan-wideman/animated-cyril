@@ -19,6 +19,7 @@ buildScripts = ->
         .pipe(browserify
             transform: ['coffeeify'], # Enable the coffeeify extension
             extensions: ['.coffee'] # Only read .coffee files
+            sourceMap: true
             debug: true
         )
         .on('error', (err)-> console.log err.message)
@@ -29,8 +30,8 @@ buildScripts = ->
     #    .pipe(gulp.dest('build'))
     #gulp.src("assets/**", {"base": "."})
     #    .pipe(gulp.dest('build'))
-    # gulp.src("src/vendor/**", {"base": "src"})
-        # .pipe(gulp.dest('build/js'))
+    gulp.src("src/vendor/**", {"base": "src"})
+        .pipe(gulp.dest('build/js'))
 
 
 # Gulp Tasks are what you can call from the CLI. So, this
@@ -43,7 +44,7 @@ gulp.task 'scripts', buildScripts
 gulp.task 'watch', ->
     # The Watch method watches for changes in the array of src files, and calls the following array of tasks anytime
     # the files are changed
-    gulp.watch ['src/scripts/**/*.coffee', 'src/**/*.html'], ['build', 'reload']
+    gulp.watch ['src/vendor/**/*', 'src/scripts/**/*.coffee', 'src/**/*.html'], ['build', 'reload']
 
 gulp.task 'syncwatch', ['bsync', 'watch']
 
@@ -75,3 +76,5 @@ gulp.task 'clean', ->
     del [
         'build/js'
     ]
+
+gulp.task 'default', ['syncwatch']

@@ -45,7 +45,7 @@ class Main
             @game.plugins.screenShake.setup
                 shakeX: false
                 shakeY: true
-                sensCoef: .5
+                sensCoef: 1
 
         create: ->
             # # Add a Hello World message

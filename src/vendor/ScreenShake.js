@@ -2,7 +2,8 @@
 
 /**
 * Plugin to make screen shake FX (makes number of short camera movements).
-*
+* https://github.com/dmaslov/phaser-screen-shake
+* modified
 */
 Phaser.Plugin.ScreenShake = function(game, parent){
   Phaser.Plugin.call(this, game, parent);
@@ -12,7 +13,8 @@ Phaser.Plugin.ScreenShake = function(game, parent){
     shakesCount: 0,
     shakeX: true,
     shakeY: true,
-    sensCoef: 0.5
+    sensCoef: 0.5,
+    prevCamera: [0 ,0]
   };
   this.game.camera.bounds = null;
 
@@ -35,7 +37,7 @@ Phaser.Plugin.ScreenShake = function(game, parent){
       this._settings.shakesCount--;
 
       if(this._settings.shakesCount === 0){
-        this.game.camera.setPosition(0, 0);
+        this.game.camera.setPosition(this._settings.prevCamera[0], this._settings.prevCamera[1]);
       }
     }
   };
@@ -63,6 +65,8 @@ Phaser.Plugin.ScreenShake.prototype.setup = function(obj){
 * @param {number} [count] - Value of count shakes
 */
 Phaser.Plugin.ScreenShake.prototype.shake = function(count){
+  this._settings.prevCamera[0] = this.game.camera.x;
+  this._settings.prevCamera[1] = this.game.camera.y;
   this._settings.shakesCount = count;
 };
 

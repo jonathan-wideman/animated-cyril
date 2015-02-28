@@ -31,7 +31,6 @@ class exports.Player extends Phaser.Sprite
         @game.add.existing @
 
     update: ->
-
         # Update the player controller
         @controller.update()
 

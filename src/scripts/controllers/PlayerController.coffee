@@ -71,7 +71,7 @@ class exports.PlayerController
             @player.body.velocity.y = @player.speed
 
         if @game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 10)
-            @player.nextTool()
+            @nextTool()
 
         @tool.update()
 
